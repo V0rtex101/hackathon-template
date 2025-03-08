@@ -6,7 +6,7 @@
 - Member #3: REPLACE
 
 # Project description
-To incentivise users to our product, we chose to focus on how resembler.ai's software and continuously colllected accidents data can help them with insurance claims and preventing unforseen accidents to a certain extent. We created a web application that outlines the troubles that are often found with insurance
+To incentivise users to our product, we chose to focus on how resembler.ai's software and continuously colllected accidents data can help them with insurance claims(using the uploaded data to build a strong case for insurance claims) and preventing unforseen accidents to a certain extent. We created a web application that outlines the troubles that are often found with insurance
 claims and accidents caused by lack of information on the path used to travel. The web app has a 'map' route that shows all locations of recorded accidents and areas that are more prone to accidents which helps avoid unnecessary accidents by warning users of roads to be alert of or avoid entirely.All these feauteres provided to our customers encourage them to upload data concerning accidents they've experienced because these feautures show the user how this data can be used for their benefit. The last route(upload route) leads the user to resember.ai's page where they will be able to upload their video.
 # Project execution
 You can download the files from the repository. 
