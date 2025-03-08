@@ -53,6 +53,7 @@
                     map: map,
                     title: "Your Location",
                     });
+                    map.setCenter(userLocation);
                   // Allow user to click on the map to set a destination
                   map.addListener("click", (event) => {
                             var clickedLocation = event.latLng;
