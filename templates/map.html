@@ -34,7 +34,7 @@
                 new google.maps.Marker({
                     position: { lat: location.lat, lng: location.lng },
                     map: map,
-                    title: location.category,
+                    title: getDescription(location.category),
                     icon: getIconForCategory(location.category)
                 });
             });
@@ -59,6 +59,12 @@
                                     map: map,
                                     title: getDescription(selectedCategory),
                                     icon: getIconForCategory(selectedCategory)
+                                });
+                                // add marker to list
+                                markersList.push(destinationMarker);
+                                destinationMarker.addListener("click", function(){
+                                    destinationMarker.setMap(null);
+                                    markersList = markersList.filter(pin => pin!=destinationMarker);
                                 });
                         });
                     },
