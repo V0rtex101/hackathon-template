@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Hotspots</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ_3DyDxPja91EVHiJWImcX7bqVA_oKas&libraries=places&callback=initMap" async defer></script>
+    <script>
+        var destinationMarker;
+        var selectedCategory = ''; // Variable to store the selected category
+        // Define categories with color and description
+        const categories = {
+            potholes: { color: "red", description: "Area has potholes, drive with caution." },
+            animals: { color: "orange", description: "Animals may jump onto the road, drive carefully." },
+            accidents: { color: "yellow", description: "Area prone to accidents (e.g., intersections, highways)." },
+        };
+        function initMap() {
+            var location = { lat: 1.291729, lng: 103.789032}; // Default location eg: singapore
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: location
+            }); // defining map object
+
+            // List of predefined markers (lat, lng, category)
+            var locations = [
+                { lat: 1.4141297600236555, lng: 103.89860196245343, category: "accidents" },
+                { lat: 1.3593365717206183, lng: 103.8307339268448, category: "accidents" },
+                { lat: 1.4321592429614753, lng: 103.80335012983, category: "accidents" },
+                { lat: 1.350250841614553, lng: 103.71306086014954, category: "accidents" },
+                { lat: 1.3408744395386663, lng: 103.82368487520932, category: "accidents" },
+                { lat: 1.3156431778443647, lng: 103.87329637106512, category: "accidents" },
+                { lat: 1.27458463281158, lng: 103.79652117694053, category: "accidents" },
+                { lat: 1.4197501412237, lng: 103.769755646352, category: "accidents" }
+            ];
+
+            // Place markers on the map
+            locations.forEach(location => {
+                new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.category,
+                    icon: getIconForCategory(location.category)
+                });
+            });
+                    
+            // check if geolocotion is supported
+            if(navigator.geolocation){
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  var userLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+                  map.setCenter(userLocation);
+                  new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    title: "Your Location",
+                    });
+                  // Allow user to click on the map to set a destination
+                  map.addListener("click", (event) => {
+                            var clickedLocation = event.latLng;
+
+                            // Remove previous destination marker if it exists
+                            //if (destinationMarker) {
+                                //destinationMarker.setMap(null);
+                            //}
+
+                            // Place a new marker at the clicked location with category
+                               destinationMarker = new google.maps.Marker({
+                                    position: clickedLocation,
+                                    map: map,
+                                    title: selectedCategory,
+                                    icon: getIconForCategory(selectedCategory)
+                                });
+                        });
+                    },
+                    (error) => {
+                        alert("Geolocation failed. Default location will be used.");
+                    }
+                );
+            } else {
+                alert("Geolocation not supported by this browser.");
+            }
+        }
+
+        // Function to return different icons based on selected category
+        function getIconForCategory(category) {
+            switch (category) {
+                case "potholes":
+                    return "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"; // Default yellow icon for potholes
+                case "animals":
+                    return "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"; // Default green icon for animals
+                case "accidents":
+                    return "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"; // Default red icon for accidents
+                default:
+                    return "http://maps.google.com/mapfiles/ms/icons/red-dot.png"; // Default blue icon for unselected category
+            }
+          // Create the marker icon with the selected color
+          return {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: color,
+                fillOpacity: 1,
+                strokeColor: color,
+                strokeWeight: 2,
+                scale: 8
+            };
+        }
+        // Function to set selected category when a button is clicked
+        function setCategory(category) {
+            selectedCategory = category;
+        }
+    </script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;        }
+        .yw{
+          background-color: yellow;
+          color: black;
+          border: none;
+          padding: 10px;
+          margin: 5px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+        .be{
+          background-color: rgb(0, 170, 255);
+          color: white;
+          border: none;
+          padding: 10px;
+          margin: 5px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+        .oe{
+          background-color: rgb(255, 115, 0);
+          color: white;
+          border: none;
+          padding: 10px;
+          margin: 5px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+        .category-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .category-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body onload="initMap()">
+    <nav class="bg-light border navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+            <h3>The Auto Makers</h3>
+            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav ms-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/map">Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/upload">Upload Video</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+    <div id="map" class="mt-4"></div>
+    <div class="category-buttons">
+      <button onclick="setCategory('potholes')" class = "yw">Potholes - Drive with Caution</button>
+      <button onclick="setCategory('animals')" class = "be">Animals on Road</button>
+      <button onclick="setCategory('accidents')" class = "oe">Prone to Accidents</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>
