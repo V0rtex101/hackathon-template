@@ -2,19 +2,21 @@
 
 - Team Name: All-Stars
 - Member #1: Andziso khosa
-- Member #2: Fulufelo Muluadzi
+- Member #2: Fulufhelo Muluadzi
 - Member #3: REPLACE
 
 # Project description
-Please provide a comprehensive description of your approach to the given problem statement. Add images, charts, links, anything that you think is necessary to describe your submission.
-
+To incentivies users to our product, we chose to focus on how resembler.ai's software can help them with insurance claims. We created a web application that outlines the troubles that are often found with insurance
+claims. The web app also has a map route that shows all locations of recorded accidents and illustrates them to the user to show how their data is actually being used to establish reliability with them. The last route leads the user to resember.ai's page where they will be able to upload their video.
 # Project execution
-Since one of the key features of this Hackathon is a **working Prototype**, please provide a step-by-step guide on how to run your submission.
+You can download the files from the repository. 
+Make sure to pip install flask on your system
+Run the web app by entering "flask run" in your terminal and a local session should open
 
 # Future Roadmap
 Please describe the future of your application. 
-- What makes your application scalable?
-- What is missing in your current implementation that you would include in a production grade application?
+As more videos are uploaded, the pins on the map will continue to increase hence we are to cover more different areas. 
+
 
 # Additional comments
-Below here you have the opportunity to add more information or small notes. This could include obstacles that you have faced, known bugs or workarounds that you weren't able to solve in time.
+We didn't have a database
