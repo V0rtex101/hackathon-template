@@ -1,8 +1,8 @@
 # Resembler Hackathon README template
 
-- Team Name: REPLACE
-- Member #1: REPLACE
-- Member #2: REPLACE
+- Team Name: All-Stars
+- Member #1: Andziso khosa
+- Member #2: Fulufelo Muluadzi
 - Member #3: REPLACE
 
 # Project description
