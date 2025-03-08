@@ -19,4 +19,5 @@ Please describe the future of your application:
 As more videos are uploaded, the pins on the map will continue to increase hence we are to cover more different areas and inform more customers with more accurate data. 
 As we gain more users we hope to one day deploy it as a mobile app for convinience.
 # Additional comments
-We didn't have a database
+We didn't have a database.
+Due to the fact that google discontinued the directions api and we are unfamiliar with their new routes api we couldn't add a directions feature to help users find better paths when driving from point A to point B while being guided through or from the accident prone zones.
