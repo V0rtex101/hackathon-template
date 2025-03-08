@@ -9,21 +9,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ_3DyDxPja91EVHiJWImcX7bqVA_oKas&libraries=places&callback=initMap" async defer></script>
     <script>
         var destinationMarker;
-        var selectedCategory = ''; // Variable to store the selected category
-        // Define categories with color and description
-        const categories = {
-            potholes: { color: "red", description: "Area has potholes, drive with caution." },
-            animals: { color: "orange", description: "Animals may jump onto the road, drive carefully." },
-            accidents: { color: "yellow", description: "Area prone to accidents (e.g., intersections, highways)." },
-        };
-        function initMap() {
-            var location = { lat: 1.291729, lng: 103.789032}; // Default location eg: singapore
-            var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 13,
-                center: location
-            }); // defining map object
-
-            // List of predefined markers (lat, lng, category)
+        var markersList = [];
+        var selectedCategory = "accidents"; // Variable to store the selected category defaualt: accidents
+        // List of predefined markers (lat, lng, category)
             var locations = [
                 { lat: 1.4141297600236555, lng: 103.89860196245343, category: "accidents" },
                 { lat: 1.3593365717206183, lng: 103.8307339268448, category: "accidents" },
@@ -34,7 +22,13 @@
                 { lat: 1.27458463281158, lng: 103.79652117694053, category: "accidents" },
                 { lat: 1.4197501412237, lng: 103.769755646352, category: "accidents" }
             ];
-
+        function initMap() {
+            var location = { lat: 1.291729, lng: 103.789032}; // Default location eg: singapore
+            // defining map object
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: location
+            }); 
             // Place markers on the map
             locations.forEach(location => {
                 new google.maps.Marker({
@@ -59,17 +53,11 @@
                   // Allow user to click on the map to set a destination
                   map.addListener("click", (event) => {
                             var clickedLocation = event.latLng;
-
-                            // Remove previous destination marker if it exists
-                            //if (destinationMarker) {
-                                //destinationMarker.setMap(null);
-                            //}
-
                             // Place a new marker at the clicked location with category
                                destinationMarker = new google.maps.Marker({
                                     position: clickedLocation,
                                     map: map,
-                                    title: selectedCategory,
+                                    title: getDescription(selectedCategory),
                                     icon: getIconForCategory(selectedCategory)
                                 });
                         });
@@ -95,19 +83,23 @@
                 default:
                     return "http://maps.google.com/mapfiles/ms/icons/red-dot.png"; // Default blue icon for unselected category
             }
-          // Create the marker icon with the selected color
-          return {
-                path: google.maps.SymbolPath.CIRCLE,
-                fillColor: color,
-                fillOpacity: 1,
-                strokeColor: color,
-                strokeWeight: 2,
-                scale: 8
-            };
         }
         // Function to set selected category when a button is clicked
         function setCategory(category) {
             selectedCategory = category;
+        }
+        //function to get description of pin
+        function getDescription(category){
+            switch (category) {
+                case "potholes":
+                    return "Area has potholes, drive with caution."; 
+                case "animals":
+                    return "Animals may jump onto the road, drive carefully."; 
+                case "accidents":
+                    return "Area prone to accidents (e.g., intersections, highways)."; 
+                default:
+                    return "Area prone to accidents (e.g., intersections, highways)."; 
+            }
         }
     </script>
     <style>
